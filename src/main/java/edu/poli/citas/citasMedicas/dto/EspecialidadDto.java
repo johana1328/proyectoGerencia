@@ -1,6 +1,7 @@
 package edu.poli.citas.citasMedicas.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class EspecialidadDto implements Serializable {
 	/**
@@ -8,10 +9,8 @@ public class EspecialidadDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private AutorizacionDto autorizacion;
-	private String nombre;
-	private Long cantidad;
-	private String posologia;
+	private String descropcion;
+	private List<EmpleadoDto> empleados;
 
 	public Long getId() {
 		return id;
@@ -21,36 +20,20 @@ public class EspecialidadDto implements Serializable {
 		this.id = id;
 	}
 
-	public AutorizacionDto getAutorizacion() {
-		return autorizacion;
+	public String getDescropcion() {
+		return descropcion;
 	}
 
-	public void setAutorizacion(AutorizacionDto autorizacion) {
-		this.autorizacion = autorizacion;
+	public void setDescropcion(String descropcion) {
+		this.descropcion = descropcion;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public List<EmpleadoDto> getEmpleados() {
+		return empleados;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public Long getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(Long cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public String getPosologia() {
-		return posologia;
-	}
-
-	public void setPosologia(String posologia) {
-		this.posologia = posologia;
+	public void setEmpleados(List<EmpleadoDto> empleados) {
+		this.empleados = empleados;
 	}
 
 }
