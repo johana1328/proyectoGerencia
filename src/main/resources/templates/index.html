@@ -2,13 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Citas Medicas</title>
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	<head th:insert="~{fragments/inclideStyle}" />
+	<script th:src="@{/public/theme/jquery/jquery.min.js}"></script>
 </head>
 
-<body>
-	<h1>sss</h1>
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<div th:replace="~{fragments/menuLayout}" />
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Blank Page</h1>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="content">
+				<div class="card">
+					<div class="card-body">
+						Start creating your amazing application!
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<div th:replace="~{fragments/includeScript}" />
+	</div>
 </body>
+
+</html>
