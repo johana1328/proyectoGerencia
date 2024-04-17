@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<head th:insert="~{fragments/inclideStyle}" />
+	<script th:src="@{/public/theme/jquery/jquery.min.js}"></script>
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<div th:replace="~{fragments/menuLayout}" />
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Especialidades</h1>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="content">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title" th:text="${id > 0} ? 'Modificar Especialidad' : 'Crear Especialidad'">
+							Crear Especialidad</h3>
+					</div>
+					<div class="card-body">
+						<form method="post"
+							th:action="${id > 0} ? @{/especialidad/update/{id}(id=${especialidad.id})} : @{/especialidad/create}"
+							th:object="${especialidad}">
+							<input type="hidden" th:field="*{id}" />
+							<div class="form-group">
+								<label for="nombre">Nombre</label>
+								<input type="text" class="form-control" id="nombre" th:field="*{descropcion}"
+									placeholder="Nombre de especialidad">
+							</div>
+							<button type="submit" class="btn btn-primary float-right"
+								th:text="${id > 0} ? 'Modificar' : 'Crear'"></button>
+						</form>
+					</div>
+			</section>
+		</div>
+	</div>
+	<div th:replace="~{fragments/includeScript}" />
+</body>
+
+</html>

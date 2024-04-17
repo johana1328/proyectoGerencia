@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<head th:insert="~{fragments/inclideStyle}" />
+	<script th:src="@{/public/theme/jquery/jquery.min.js}"></script>
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<div th:replace="~{fragments/menuLayout}" />
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Especialidades</h1>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="content">
+				<div class="card">
+					<div class="card-body">
+						
+						<div th:if="${accionOk != 'NA'}" class="alert alert-success alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h5 style="display: inline;"<i class="icon fas fa-check"></i> OK!</h5>
+							 <span th:if="${accionOk == 'create'}" >Registro creado correctamente.</span>
+							 <span th:if="${accionOk == 'update'}" >Registro actualizado correctamente.</span>
+							 <span th:if="${accionOk == 'delete'}" >Registro eliminado correctamente.</span> 
+						</div>
+						<a th:href="@{/especialidad/create}" class="btn btn-primary float-right">Crear Especialidad</a>
+						<br /><br />
+						<table id="especialidades" class="table table-bordered table-striped table-sm">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Nombre</th>
+									<th>Accion</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="especialidad:${especialidades}">
+									<td th:text="${especialidad.id}"></td>
+									<td th:text="${especialidad.descropcion}"></td>
+									<td style="width: 100px;">
+										<a th:href="@{/especialidad/update/{id}(id=${especialidad.id})}"
+											class="btn btn-outline-primary btn-block float-left btntable">
+											<i class="fa fa-pencil-alt"></i>
+										</a>
+										<form method="post"
+											th:action="@{/especialidad/delete/{id}(id=${especialidad.id})}">
+											<button type="submit" style="margin-top: 1px;"
+												class="btn btn-outline-primary btn-block float-right btntable">
+												<i class="fa fa-trash"></i>
+											</button>
+											</a>
+										</form>
+									</td>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<div th:replace="~{fragments/includeScript}" />
+	<script>
+		$(function () {
+			$('#especialidades').DataTable({
+				"paging": true,
+				"lengthChange": false,
+				"searching": false,
+				"ordering": true,
+				"info": true,
+				"autoWidth": false,
+				"responsive": true,
+			});
+		});
+	</script>
+</body>
+
+</html>
