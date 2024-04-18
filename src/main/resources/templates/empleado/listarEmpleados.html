@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<head th:insert="~{fragments/inclideStyle}" />
+	<script th:src="@{/public/theme/jquery/jquery.min.js}"></script>
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<div th:replace="~{fragments/menuLayout}" />
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Empleados</h1>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="content">
+				<div class="card">
+					<div class="card-body">
+
+						<div th:if="${accionOk != 'NA'}" class="alert alert-success alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h5 style="display: inline;" <i class="icon fas fa-check"></i> OK!</h5>
+							<span th:if="${accionOk == 'create'}">Registro creado correctamente.</span>
+							<span th:if="${accionOk == 'update'}">Registro actualizado correctamente.</span>
+							<span th:if="${accionOk == 'delete'}">Registro eliminado correctamente.</span>
+						</div>
+						<div class="btn-group float-right">
+							<button type="button" class="btn btn-primary btn-flat">Crear Empleado</button>
+							<button type="button" class="btn btn-primary btn-flat dropdown-toggle dropdown-icon"
+								data-toggle="dropdown">
+								<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<div class="dropdown-menu" role="menu">
+								<a class="dropdown-item" th:href="@{/empleado/create/medico}">Medico</a>
+								<a class="dropdown-item" th:href="@{/empleado/create/asesor}">Acesor</a>
+							</div>
+						</div>
+
+
+						<br /><br />
+						<table id="especialidades" class="table table-bordered table-striped table-sm">
+							<thead>
+								<tr>
+									<th>Tipo</th>
+									<th>Id</th>
+									<th>Nombre</th>
+									<th>Apellido</th>
+									<th>Tipo Documento</th>
+									<th>Documento</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="empleado:${empleados}">
+									<td class="text-center" style="width: 70px;">
+										<span  th:if="${empleado.tipoEmpleado == 'MEDICO'}" ><i class="fa fa-stethoscope"></i></span>
+										<span  th:if="${empleado.tipoEmpleado == 'ASESOR'}" ><i class="fa fa-user-tie"></i></span>
+										
+									</td>
+									<td th:text="${empleado.id}"></td>
+									<td th:text="${empleado.nombre}"></td>
+									<td th:text="${empleado.apellido}"></td>
+									<td th:text="${empleado.tipoDocumneto}"></td>
+									<td th:text="${empleado.documento}"></td>
+									<td style="width: 100px;">
+										<a th:href="@{/empleado/update/{id}(id=${empleado.id})}"
+											class="btn btn-outline-primary btn-block float-left btntable">
+											<i class="fa fa-pencil-alt"></i>
+										</a>
+										<form method="post" th:action="@{/empleado/delete/{id}(id=${empleado.id})}">
+											<button type="submit" style="margin-top: 1px;"
+												class="btn btn-outline-primary btn-block float-right btntable">
+												<i class="fa fa-trash"></i>
+											</button>
+											</a>
+										</form>
+									</td>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<div th:replace="~{fragments/includeScript}" />
+	<script>
+		$(function () {
+			$('#especialidades').DataTable({
+				"paging": true,
+				"lengthChange": false,
+				"searching": false,
+				"ordering": true,
+				"info": true,
+				"autoWidth": false,
+				"responsive": true,
+			});
+		});
+	</script>
+</body>
+
+</html>

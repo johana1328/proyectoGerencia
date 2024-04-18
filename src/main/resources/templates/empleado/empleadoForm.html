@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<head th:insert="~{fragments/inclideStyle}" />
+	<script th:src="@{/public/theme/jquery/jquery.min.js}"></script>
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<div th:replace="~{fragments/menuLayout}" />
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Empleados</h1>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="content">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title" th:text="${id > 0} ? 'Modificar Empleado' : 'Crear Empleado'">
+							Crear Empleados</h3>
+					</div>
+					<div class="card-body">
+						<form method="post"
+							th:action="${id > 0} ? @{/empleado/update/{id}(id=${empleado.id})} : @{/empleado/create}"
+							th:object="${empleado}">
+							<input th:if="${mode == 'asesor'}" type="hidden" th:value="6" th:attr="name='especialidad.id'">
+							<input type="hidden" th:value="${mode == 'asesor'}?'ASESOR':'MEDICO'" name="tipoEmpleado">
+
+							<div class="form-group">
+								<label for="nombre">Nombre</label>
+								<input type="text" class="form-control" id="nombre" th:field="*{nombre}"
+									placeholder="Nombre del empleado">
+							</div>
+							<div class="form-group">
+								<label for="apellido">Apellido</label>
+								<input type="text" class="form-control" id="apellido" th:field="*{apellido}"
+									placeholder="Apellido del empleado">
+							</div>
+							<div class="form-group">
+								<label for="documento">Documento</label>
+								<input type="text" class="form-control" id="documento" th:field="*{documento}"
+									placeholder="Documento del empleado">
+							</div>
+							<div class="form-group">
+								<label for="password">Contraseña</label>
+								<input type="text" class="form-control" id="password" th:field="*{password}"
+									placeholder="Contraseña del empleado">
+							</div>
+
+							<div class="form-group">
+								<label for="tipoDoc">Tipo Documento</label>
+								<select name="tipoDoc" class="form-control" th:field="*{tipoDocumneto}">
+									<option
+										th:each="tipoDoc : ${T(edu.poli.citas.citasMedicas.model.DocumentType).values()}"
+										th:value="${tipoDoc}" th:text="${tipoDoc}"></option>
+								</select>
+							</div>
+
+							<div th:if="${mode == 'medico'}" class="form-group">
+								<label for="tipoEmpleado">Especialidad</label>
+								<select name="tipoEmpleado" class="form-control" th:field="*{especialidad.id}">
+									<option th:each="especialidad : ${especialidades}" th:value="${especialidad.id}"
+										th:text="${especialidad.descropcion}">
+									</option>
+								</select>
+							</div>
+
+
+
+
+
+
+							<button type="submit" class="btn btn-primary float-right"
+								th:text="${id > 0} ? 'Modificar' : 'Crear'"></button>
+						</form>
+					</div>
+			</section>
+		</div>
+	</div>
+	<div th:replace="~{fragments/includeScript}" />
+</body>
+
+</html>
