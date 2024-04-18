@@ -1,7 +1,5 @@
 package edu.poli.citas.citasMedicas.dto;
 
-import java.util.List;
-
 public class EmpleadoDto extends UsuarioDto {
 
 	/**

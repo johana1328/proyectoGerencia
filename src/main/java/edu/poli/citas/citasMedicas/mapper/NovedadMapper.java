@@ -5,9 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-import edu.poli.citas.citasMedicas.dto.MedicamentoDto;
 import edu.poli.citas.citasMedicas.dto.NovedadDto;
-import edu.poli.citas.citasMedicas.model.MedicamentoModel;
 import edu.poli.citas.citasMedicas.model.NovedadModel;
 
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

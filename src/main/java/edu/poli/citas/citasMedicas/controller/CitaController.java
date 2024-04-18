@@ -20,7 +20,6 @@ import edu.poli.citas.citasMedicas.dto.PacienteDto;
 import edu.poli.citas.citasMedicas.service.CitaService;
 import edu.poli.citas.citasMedicas.service.EmpleadoService;
 import edu.poli.citas.citasMedicas.service.PacienteService;
-import edu.poli.citas.citasMedicas.service.UsuarioService;
 
 @Controller
 @RequestMapping("/cita")
