@@ -26,6 +26,7 @@ public class EmpleadoService implements CrudService<EmpleadoDto, Long> {
 		List<EmpleadoModel> resultList = repository.findAll();
 		return resultList.stream().map(mapper::toDto).collect(Collectors.toList());
 	}
+	
 
 	@Override
 	public Optional<EmpleadoDto> getById(Long id) {
@@ -65,6 +66,11 @@ public class EmpleadoService implements CrudService<EmpleadoDto, Long> {
 		}
 		throw new Exception("Error especialidad no valida");
 
+	}
+	
+	public List<EmpleadoDto> getListMedicos() {
+		List<EmpleadoModel> resultList = repository.listMedicos();
+		return resultList.stream().map(mapper::toDto).collect(Collectors.toList());
 	}
 
 }

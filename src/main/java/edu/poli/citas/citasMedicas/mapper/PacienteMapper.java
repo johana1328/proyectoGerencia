@@ -15,6 +15,7 @@ public abstract class PacienteMapper {
 	public abstract PacienteDto toDto(PacienteModel source);
 
 	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "citas", ignore = true)
 	public abstract PacienteModel toModel(PacienteDto source);
 
 	@Mapping(target = "id", ignore = true)

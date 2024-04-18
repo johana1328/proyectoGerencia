@@ -31,19 +31,19 @@ public class CitaModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false,  fetch = FetchType.EAGER)
 	@JoinColumn(name = "doctor")
 	private UsuarioModel doctor;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false,  fetch = FetchType.EAGER)
 	@JoinColumn(name = "paciente")
 	private UsuarioModel paciente;
 
-	@Column(name = "FECHA", updatable = false)
+	@Column(name = "FECHA")
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
-	@Column(name = "HORA", updatable = false)
+	@Column(name = "HORA")
 	@Temporal(TemporalType.TIME)
 	private Date hora;
 

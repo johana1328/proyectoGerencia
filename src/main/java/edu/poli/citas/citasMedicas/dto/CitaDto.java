@@ -13,13 +13,16 @@ public class CitaDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private UsuarioModel doctor;
-	private UsuarioModel paciente;
-	private Date fecha;
-	private Date hora;
+	private UsuarioDto doctor;
+	private UsuarioDto paciente;
+	private String fecha;
+	private String hora;
 	private String centroMedico;
 	private List<AutorizacionDto> autorizacion;
 	private List<NovedadDto> novedades;
+
+	private Long idDoctor;
+	private Long idPaciente;
 
 	public Long getId() {
 		return id;
@@ -29,35 +32,35 @@ public class CitaDto implements Serializable {
 		this.id = id;
 	}
 
-	public UsuarioModel getDoctor() {
+	public UsuarioDto getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(UsuarioModel doctor) {
+	public void setDoctor(UsuarioDto doctor) {
 		this.doctor = doctor;
 	}
 
-	public UsuarioModel getPaciente() {
+	public UsuarioDto getPaciente() {
 		return paciente;
 	}
 
-	public void setPaciente(UsuarioModel paciente) {
+	public void setPaciente(UsuarioDto paciente) {
 		this.paciente = paciente;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
-	public Date getHora() {
+	public String getHora() {
 		return hora;
 	}
 
-	public void setHora(Date hora) {
+	public void setHora(String hora) {
 		this.hora = hora;
 	}
 
@@ -83,6 +86,22 @@ public class CitaDto implements Serializable {
 
 	public void setNovedades(List<NovedadDto> novedades) {
 		this.novedades = novedades;
+	}
+
+	public Long getIdDoctor() {
+		return idDoctor;
+	}
+
+	public void setIdDoctor(Long idDoctor) {
+		this.idDoctor = idDoctor;
+	}
+
+	public Long getIdPaciente() {
+		return idPaciente;
+	}
+
+	public void setIdPaciente(Long idPaciente) {
+		this.idPaciente = idPaciente;
 	}
 
 }

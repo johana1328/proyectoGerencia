@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<head th:insert="~{fragments/inclideStyle}" />
+	<script th:src="@{/public/theme/jquery/jquery.min.js}"></script>
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<div th:replace="~{fragments/menuLayout}" />
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Citas Medica</h1>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="content">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title" th:text="${id > 0} ? 'Modificar Cita Medica' : 'Crear Cita Medica'">
+							Crear Cita Medica</h3>
+					</div>
+					<div class="card-body">
+						<form method="post"
+							th:action="${id > 0} ? @{/cita/update/{id}(id=${cita.id})} : @{/cita/create}"
+							th:object="${cita}">
+
+							<div th:if="${mode == 'USER'}" class="form-group">
+								<label for="nombre">Paciente</label>
+								<input type="text" id="nombre" class="form-control"
+									th:value="${paciente.nombre}+ ''+ ${paciente.apellido}" disabled>
+								<input type="hidden" th:value="${paciente.id}" th:attr="name='paciente.id'">
+							</div>
+
+							<div th:if="${mode == 'ASESOR'}" class="form-group">
+								<label for="selectPacientes">Pacientes</label>
+								<select name="selectPacientes" class="form-control" th:field="*{idPaciente}">
+									<option th:each="paciente : ${pacientes}" th:value="${paciente.id}"
+										th:text="${paciente.nombre} + ' ' + ${paciente.apellido}">
+									</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="doctor">Doctor</label>
+								<select name="doctor" class="form-control" th:field="*{idDoctor}">
+									<option th:each="doctor : ${medicos}" th:value="${doctor.id}"
+										th:text="${doctor.nombre} + ' ' +  ${doctor.apellido}">
+									</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="fecha">fecha</label>
+								<div class="input-group">
+									<input type="text" id="fecha" class="form-control">
+									<input type="hidden" id="fecha-send" th:field="*{fecha}">
+									<div id="datePickerBtn" class="input-group-append">
+										<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="fecha">Hora</label>
+								<input type="text" class="form-control" id="hora">
+								<input type="hidden" id="hora-send" th:field="*{hora}">
+							</div>
+
+							<div class="form-group">
+								<label for="centro">Centro Medico</label>
+								<input type="text" class="form-control" id="centro" th:field="*{centroMedico}"
+									placeholder="Documento del empleado">
+							</div>
+
+							<button type="submit" class="btn btn-primary float-right"
+								th:text="${id > 0} ? 'Modificar' : 'Crear'"></button>
+						</form>
+					</div>
+			</section>
+		</div>
+	</div>
+	<div th:replace="~{fragments/includeScript}" />
+	<script>
+		$(function () {
+			$("#hora").timepicker({
+				timeFormat: 'h:mm p',
+				interval: 15,
+				minTime: '10',
+				maxTime: '6:00pm',
+				defaultTime: $('#hora-send').val()?$('#hora-send').val():'11',
+				startTime: '08:00',
+				dynamic: false,
+				dropdown: true,
+				scrollbar: true,
+				change: function (time) {
+					const fecha = "" + time;
+					const expresionRegular = /\b\d{2}:\d{2}:\d{2}\b/;
+					const horaExtraida = fecha.match(expresionRegular)[0];
+					$('#hora-send').val(horaExtraida);
+				}
+			})
+
+			$("#fecha").datepicker({
+				onSelect: function (date) {
+					$('#fecha-send').val(date);
+				}
+			});
+
+			$("#datePickerBtn").on("click", function () {
+				if ($("#fecha").datepicker("widget").is(":visible")) {
+					$("#fecha").datepicker("hide");
+				} else {
+					$("#fecha").datepicker("show");
+				}
+			});
+			
+			if($('#fecha-send').val()){
+				$("#fecha").datepicker( "setDate" , $('#fecha-send').val() );
+			}
+			
+			
+		});
+	</script>
+</body>
+
+</html>
