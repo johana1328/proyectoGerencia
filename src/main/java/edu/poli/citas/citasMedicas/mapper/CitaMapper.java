@@ -18,6 +18,7 @@ public abstract class CitaMapper {
 	@Mapping(target = "doctor.citas",ignore = true)
 	@Mapping(target = "paciente.citas",ignore = true)
 	@Mapping(target = "novedades" , ignore= true)
+	@Mapping(target = "especialidad" , ignore= true)
 	public abstract CitaDto toDto(CitaModel source);
 
 	@Mapping(target = "id", ignore = true)

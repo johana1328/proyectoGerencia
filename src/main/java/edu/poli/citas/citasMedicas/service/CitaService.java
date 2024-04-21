@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import edu.poli.citas.citasMedicas.dto.CitaDto;
 import edu.poli.citas.citasMedicas.mapper.CitaMapper;
 import edu.poli.citas.citasMedicas.model.CitaModel;
+import edu.poli.citas.citasMedicas.model.EmpleadoModel;
 import edu.poli.citas.citasMedicas.repository.CitaRepository;
+import edu.poli.citas.citasMedicas.repository.EmpleadoRepository;
 
 @Service
 public class CitaService implements CrudService<CitaDto, Long> {
@@ -20,11 +22,20 @@ public class CitaService implements CrudService<CitaDto, Long> {
 
 	@Autowired
 	private CitaMapper mapper;
+	
+	@Autowired
+	private EmpleadoRepository empleadoRepository;
 
 	@Override
 	public List<CitaDto> getList() {
 		List<CitaModel> resultList = repository.findAll();
-		return resultList.stream().map(mapper::toDto).collect(Collectors.toList());
+
+		return resultList.stream().map(cita -> {
+			CitaDto citadto = mapper.toDto(cita);
+			Optional<EmpleadoModel>  empleado = empleadoRepository.findById(cita.getDoctor().getId());
+			citadto.setEspecialidad(empleado.get().getEspecialidad().getDescropcion());
+			return citadto;
+		}).collect(Collectors.toList());
 	}
 
 	@Override

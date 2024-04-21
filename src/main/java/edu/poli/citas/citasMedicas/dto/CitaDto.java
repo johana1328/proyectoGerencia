@@ -17,6 +17,8 @@ public class CitaDto implements Serializable {
 	private String centroMedico;
 	private List<AutorizacionDto> autorizacion;
 	private List<NovedadDto> novedades;
+	
+	private String especialidad;
 
 	private Long idDoctor;
 	private Long idPaciente;
@@ -99,6 +101,18 @@ public class CitaDto implements Serializable {
 
 	public void setIdPaciente(Long idPaciente) {
 		this.idPaciente = idPaciente;
+	}
+
+	public String getEspecialidad() {
+		return especialidad;
+	}
+
+	public void setEspecialidad(String especialidad) {
+		this.especialidad = especialidad;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

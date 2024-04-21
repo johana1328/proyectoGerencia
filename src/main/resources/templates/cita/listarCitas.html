@@ -38,6 +38,7 @@
 						<table id="especialidades" class="table table-bordered table-striped table-sm">
 							<thead>
 								<tr>
+									<th>Especialidad</th>
 									<th>Doctor</th>
 									<th>Fecha</th>
 									<th>Hora</th>
@@ -48,26 +49,41 @@
 							</thead>
 							<tbody>
 								<tr th:each="cita:${citas}">
-									<td th:text="${cita.doctor.nombre}"></td>
+									<td th:text="${cita.especialidad}" ></td>
+									<td th:text="${cita.doctor.nombre}+' ' +${cita.doctor.apellido}"></td>
 									<td th:text="${cita.fecha}"></td>
-									<td th:text="${cita.hora}"></td>
+									<td th:text="${T(edu.poli.citas.citasMedicas.Utilidad).formatHour(cita.hora)}"></td>
 									<td th:text="${cita.centroMedico}"></td>
-									<td>Activo</td>
-									<td style="width: 200px;">
+									<td style="width: 100px;">
+										<small
+											th:if="${T(edu.poli.citas.citasMedicas.Utilidad).isInProcess(cita.fecha,cita.hora)}"
+											class="badge badge-info">
+											<i class="far fa-clock">
+											</i> <span
+												th:text="${T(edu.poli.citas.citasMedicas.Utilidad).processDetail(cita.fecha,cita.hora)}" /></small>
+
+										<small
+											th:if="${!T(edu.poli.citas.citasMedicas.Utilidad).isInProcess(cita.fecha,cita.hora)}"
+											class="badge badge-danger">
+											<i class="far fa-clock">
+											</i> <span
+												th:text="${T(edu.poli.citas.citasMedicas.Utilidad).processDetail(cita.fecha,cita.hora)}" /></small>
+									</td>
+									<td style="width: 180px;">
 										<a th:href="@{/cita/update/{id}(id=${cita.id})}"
 											class="btn btn-outline-primary btn-block float-left btntable">
 											<i class="fa fa-pencil-alt"></i>
 										</a>
-                                         
-                                         <a th:href="@{/cita/update/{id}(id=${cita.id})}" style="display: inline;"											class="btn btn-outline-primary btn-block btntable">
-											<i class="fas fa-user-md"></i>
+
+										<a th:href="@{/cita/update/{id}(id=${cita.id})}"
+											class="btn btn-outline-primary btn-block btntable btndetail">
+											<i class="fa fa-eye"></i>
 										</a>
 
-<!--										<a th:href="@{/cita/update/{id}(id=${cita.id})}"-->
-<!--											class="btn btn-outline-primary btn-block btntable">-->
-<!--											<i class="fa fa-eye"></i>-->
-<!--										</a>-->
-										
+										<a th:href="@{/cita/update/{id}(id=${cita.id})}"
+											class="btn btn-outline-primary btn-block btntable btndetail">
+											<i class="fas fa-user-md"></i>
+										</a>
 
 										<form method="post" th:action="@{/cita/delete/{id}(id=${cita.id})}">
 											<button type="submit" style="margin-top: 1px;"
