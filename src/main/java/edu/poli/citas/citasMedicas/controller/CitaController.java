@@ -41,6 +41,15 @@ public class CitaController {
 		model.addAttribute("citas", citas);
 		return "cita/listarCitas";
 	}
+	
+	@GetMapping("/{id}/detail")
+	public String viewDetail(Model model, @PathVariable Optional<Long> id ) {
+		CitaDto cita= service.getById(id.get()).get();
+		Optional<EmpleadoDto> doctor=   empleadoService.getById(cita.getDoctor().getId());
+		model.addAttribute("cita", cita);
+		model.addAttribute("doctor",doctor.get());
+		return "cita/detail";
+	}
 
 	@GetMapping({ "/create/{pacienteId}", "/create" })
 	public String viewCrear(Model model, @PathVariable Optional<Long> pacienteId) {

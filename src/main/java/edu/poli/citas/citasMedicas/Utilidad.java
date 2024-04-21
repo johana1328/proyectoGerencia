@@ -60,6 +60,15 @@ public class Utilidad {
 		}
 	}
 
+	public static String fecha() {
+		SimpleDateFormat newFormat = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			return newFormat.format(new Date());
+		} catch (Exception e) {
+			return "";
+		}
+	}
+
 	private static Date getDate(String date, String hour) throws ParseException {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
 		return formato.parse(date.concat("-").concat(hour));
