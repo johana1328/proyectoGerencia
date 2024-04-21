@@ -107,7 +107,8 @@
 				}
 			})
 
-			$("#fecha").datepicker({
+			$("#fecha").datepicker({ 
+				dateFormat: 'dd/mm/yy',
 				onSelect: function (date) {
 					$('#fecha-send').val(date);
 				}
