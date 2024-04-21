@@ -8,6 +8,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import edu.poli.citas.citasMedicas.dto.CitaDto;
 import edu.poli.citas.citasMedicas.model.CitaModel;
 
+
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public abstract class CitaMapper {
 

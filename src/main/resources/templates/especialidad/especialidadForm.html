@@ -31,10 +31,14 @@
 							th:action="${id > 0} ? @{/especialidad/update/{id}(id=${especialidad.id})} : @{/especialidad/create}"
 							th:object="${especialidad}">
 							<input type="hidden" th:field="*{id}" />
-							<div class="form-group">
-								<label for="nombre">Nombre</label>
-								<input type="text" class="form-control" id="nombre" th:field="*{descropcion}"
-									placeholder="Nombre de especialidad">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="nombre">Nombre</label>
+										<input type="text" class="form-control" id="nombre" th:field="*{descropcion}"
+											placeholder="Nombre de especialidad">
+									</div>
+							</div>
 							</div>
 							<button type="submit" class="btn btn-primary float-right"
 								th:text="${id > 0} ? 'Modificar' : 'Crear'"></button>

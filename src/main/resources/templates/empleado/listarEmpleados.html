@@ -39,7 +39,7 @@
 							</button>
 							<div class="dropdown-menu" role="menu">
 								<a class="dropdown-item" th:href="@{/empleado/create/medico}">Medico</a>
-								<a class="dropdown-item" th:href="@{/empleado/create/asesor}">Acesor</a>
+								<a class="dropdown-item" th:href="@{/empleado/create/asesor}">Asesor</a>
 							</div>
 						</div>
 
@@ -50,10 +50,10 @@
 								<tr>
 									<th>Tipo</th>
 									<th>Id</th>
-									<th>Nombre</th>
-									<th>Apellido</th>
 									<th>Tipo Documento</th>
 									<th>Documento</th>
+									<th>Nombre</th>
+									<th>Apellido</th>
 									<th>Acciones</th>
 								</tr>
 							</thead>
@@ -65,10 +65,10 @@
 										
 									</td>
 									<td th:text="${empleado.id}"></td>
-									<td th:text="${empleado.nombre}"></td>
-									<td th:text="${empleado.apellido}"></td>
 									<td th:text="${empleado.tipoDocumneto}"></td>
 									<td th:text="${empleado.documento}"></td>
+									<td th:text="${empleado.nombre}"></td>
+									<td th:text="${empleado.apellido}"></td>							
 									<td style="width: 100px;">
 										<a th:href="@{/empleado/update/{id}(id=${empleado.id})}"
 											class="btn btn-outline-primary btn-block float-left btntable">
@@ -76,7 +76,7 @@
 										</a>
 										<form method="post" th:action="@{/empleado/delete/{id}(id=${empleado.id})}">
 											<button type="submit" style="margin-top: 1px;"
-												class="btn btn-outline-primary btn-block float-right btntable">
+												class="btn btn-outline-danger btn-block float-right btntable">
 												<i class="fa fa-trash"></i>
 											</button>
 											</a>

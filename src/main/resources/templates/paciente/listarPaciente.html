@@ -35,11 +35,11 @@
 						<br /><br />
 						<table id="especialidades" class="table table-bordered table-striped table-sm">
 							<thead>
-								<tr>
+								<tr>									
+									<th>Tipo Documento</th>
+									<th>Documento</th>
 									<th>Nombre</th>
 									<th>Apellido</th>
-									<th>Tipo Doc</th>
-									<th>Documento</th>
 									<th>Correo</th>
 									<th>Telefono</th>
 									<th>Acciones</th>
@@ -47,10 +47,10 @@
 							</thead>
 							<tbody>
 								<tr th:each="paciente:${pacientes}">
-									<td th:text="${paciente.nombre}"></td>
-									<td th:text="${paciente.apellido}"></td>
 									<td th:text="${paciente.tipoDocumneto}"></td>
 									<td th:text="${paciente.documento}"></td>
+									<td th:text="${paciente.nombre}"></td>
+									<td th:text="${paciente.apellido}"></td>
 									<td th:text="${paciente.correo}"></td>
 									<td th:text="${paciente.telefono}"></td>
 									<td style="width: 100px;">
@@ -61,7 +61,7 @@
 										<form method="post"
 											th:action="@{/paciente/delete/{id}(id=${paciente.id})}">
 											<button type="submit" style="margin-top: 1px;"
-												class="btn btn-outline-primary btn-block float-right btntable">
+												class="btn btn-outline-danger btn-block float-right btntable">
 												<i class="fa fa-trash"></i>
 											</button>
 											</a>
