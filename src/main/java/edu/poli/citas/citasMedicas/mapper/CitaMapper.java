@@ -17,6 +17,7 @@ public abstract class CitaMapper {
 	@Mapping(target = "hora", dateFormat = "HH:mm:ss")
 	@Mapping(target = "doctor.citas",ignore = true)
 	@Mapping(target = "paciente.citas",ignore = true)
+	@Mapping(target = "novedades" , ignore= true)
 	public abstract CitaDto toDto(CitaModel source);
 
 	@Mapping(target = "id", ignore = true)
