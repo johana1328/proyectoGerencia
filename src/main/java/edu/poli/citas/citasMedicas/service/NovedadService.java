@@ -5,14 +5,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import edu.poli.citas.citasMedicas.dto.NovedadDto;
 import edu.poli.citas.citasMedicas.mapper.NovedadMapper;
 import edu.poli.citas.citasMedicas.model.NovedadModel;
 import edu.poli.citas.citasMedicas.repository.NovedadRepository;
 
-public class NovedadService implements CrudService<NovedadDto, Long>{
-	
+@Service
+public class NovedadService implements CrudService<NovedadDto, Long> {
+
 	@Autowired
 	private NovedadMapper mapper;
 
@@ -23,7 +25,7 @@ public class NovedadService implements CrudService<NovedadDto, Long>{
 	public List<NovedadDto> getList() {
 		List<NovedadModel> resultList = repository.findAll();
 		return resultList.stream().map(mapper::toDto).collect(Collectors.toList());
-	
+
 	}
 
 	@Override
@@ -47,7 +49,8 @@ public class NovedadService implements CrudService<NovedadDto, Long>{
 	public NovedadDto update(NovedadDto dto, Long id) throws Exception {
 		Optional<NovedadModel> oprioalResult = repository.findById(id);
 		if (oprioalResult.isPresent()) {
-			NovedadModel model = mapper.merge(oprioalResult.get(), dto);
+			NovedadModel model = oprioalResult.get();
+			mapper.merge(model, dto);
 			repository.save(model);
 			return mapper.toDto(model);
 		}
@@ -62,9 +65,7 @@ public class NovedadService implements CrudService<NovedadDto, Long>{
 			return;
 		}
 		throw new Exception("Error novedad no valida");
-		
+
 	}
-	
-	
 
 }

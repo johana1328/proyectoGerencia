@@ -53,11 +53,22 @@
 									<td th:text="${cita.hora}"></td>
 									<td th:text="${cita.centroMedico}"></td>
 									<td>Activo</td>
-									<td style="width: 100px;">
+									<td style="width: 200px;">
 										<a th:href="@{/cita/update/{id}(id=${cita.id})}"
 											class="btn btn-outline-primary btn-block float-left btntable">
 											<i class="fa fa-pencil-alt"></i>
 										</a>
+                                         
+                                         <a th:href="@{/cita/update/{id}(id=${cita.id})}" style="display: inline;"											class="btn btn-outline-primary btn-block btntable">
+											<i class="fas fa-user-md"></i>
+										</a>
+
+<!--										<a th:href="@{/cita/update/{id}(id=${cita.id})}"-->
+<!--											class="btn btn-outline-primary btn-block btntable">-->
+<!--											<i class="fa fa-eye"></i>-->
+<!--										</a>-->
+										
+
 										<form method="post" th:action="@{/cita/delete/{id}(id=${cita.id})}">
 											<button type="submit" style="margin-top: 1px;"
 												class="btn btn-outline-primary btn-block float-right btntable">
@@ -65,6 +76,8 @@
 											</button>
 											</a>
 										</form>
+
+
 									</td>
 									</td>
 								</tr>
