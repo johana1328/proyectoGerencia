@@ -128,22 +128,151 @@
 							</div>
 						</div>
 						<div class="col-12">
-							<a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
-									class="fas fa-print"></i> Print</a>
-							<button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i>
-								Submit
-								Payment
-							</button>
-							<button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-								<i class="fas fa-download"></i> Generate PDF
-							</button>
+							<div class="btn-group float-right">
+								<button type="button" class="btn btn-primary">Agregar Indicaciones paciente</button>
+								<button type="button"
+									class="btn btn-primary dropdown-toggle dropdown-hover dropdown-icon"
+									data-toggle="dropdown">
+									<span class="sr-only">Toggle Dropdown</span>
+								</button>
+								<div class="dropdown-menu" role="menu">
+									<a class="dropdown-item" href="#" data-toggle="modal"
+										data-target="#modal-novedad">Noveades</a>
+									<a class="dropdown-item" href="#" data-toggle="modal"
+										data-target="#modal-examen">Exámenes</a>
+									<a class="dropdown-item" href="#" data-toggle="modal"
+										data-target="#modal-medicamento">Medicamentos</a>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
 			</section>
 		</div>
 	</div>
+
+	<!-- Modales -->
+	<!-- Novedades -->
+	<div class="modal fade" id="modal-novedad">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Agregar Novead</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="centro">Observación</label>
+						<textarea class="form-control" rows="3" placeholder="Ingrese la observación del paciente"
+							style="height: 83px;"></textarea>
+					</div>
+
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Examenes -->
+	<div class="modal fade" id="modal-examen">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Agregar Examen</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="centro">Tipo Examen</label>
+						<input type="text" class="form-control" id="centro" placeholder="Centro medico">
+					</div>
+					<div class="form-group">
+						<label for="centro">Centro Medico</label>
+						<input type="text" class="form-control" id="centro" placeholder="Centro medico">
+					</div>
+					<div class="form-group">
+						<label for="fecha">fecha</label>
+						<div class="input-group">
+							<input type="text" id="fecha" class="form-control">
+							<input type="hidden" id="fecha-send">
+							<div id="datePickerBtn" class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Examenes -->
+	<div class="modal fade" id="modal-medicamento">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Agregar Medicamento</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="centro">Nombre medicamento</label>
+						<input type="text" class="form-control" id="centro" placeholder="Centro medico">
+					</div>
+					<div class="form-group">
+						<label for="centro">Cantidad</label>
+						<input type="text" class="form-control" id="centro" placeholder="Centro medico">
+					</div>
+					<div class="form-group">
+						<label for="centro">Posologia</label>
+						<input type="text" class="form-control" id="centro" placeholder="Centro medico">
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<div th:replace="~{fragments/includeScript}" />
+	<script>
+		$(function () {
+			$("#fecha").datepicker({
+				dateFormat: 'dd/mm/yy',
+				onSelect: function (date) {
+					$('#fecha-send').val(date);
+				}
+			});
+
+			$("#datePickerBtn").on("click", function () {
+				if ($("#fecha").datepicker("widget").is(":visible")) {
+					$("#fecha").datepicker("hide");
+				} else {
+					$("#fecha").datepicker("show");
+				}
+			});
+
+			if ($('#fecha-send').val()) {
+				$("#fecha").datepicker("setDate", $('#fecha-send').val());
+			}
+		});
+	</script>
 
 </body>
 
