@@ -15,7 +15,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>Citas Medica</h1>
+							<h1>Citas medica</h1>
 						</div>
 					</div>
 				</div>
@@ -24,61 +24,73 @@
 				<div class="card">
 					<div class="card-header">
 						<h3 class="card-title" th:text="${id > 0} ? 'Modificar Cita Medica' : 'Crear Cita Medica'">
-							Crear Cita Medica</h3>
+							Crear cita medica</h3>
 					</div>
 					<div class="card-body">
 						<form method="post"
 							th:action="${id > 0} ? @{/cita/update/{id}(id=${cita.id})} : @{/cita/create}"
 							th:object="${cita}">
-
-							<div th:if="${mode == 'USER'}" class="form-group">
-								<label for="nombre">Paciente</label>
-								<input type="text" id="nombre" class="form-control"
-									th:value="${paciente.nombre}+ ''+ ${paciente.apellido}" disabled>
-								<input type="hidden" th:value="${paciente.id}" th:attr="name='paciente.id'">
+						<div class="row">
+							<div class="col-sm-6">
+								<div th:if="${mode == 'USER'}" class="form-group">
+									<label for="nombre">Paciente</label>
+									<input type="text" id="nombre" class="form-control"
+										th:value="${paciente.nombre}+ ''+ ${paciente.apellido}" disabled>
+									<input type="hidden" th:value="${paciente.id}" th:attr="name='paciente.id'">
+								</div>
+	
+								<div th:if="${mode == 'ASESOR'}" class="form-group">
+									<label for="selectPacientes">Pacientes</label>
+									<select name="selectPacientes" class="form-control" th:field="*{idPaciente}">
+										<option value="0" hidden >Seleccione paciente</option>
+										<option th:each="paciente : ${pacientes}" th:value="${paciente.id}"
+											th:text="${paciente.nombre} + ' ' + ${paciente.apellido}">
+										</option>
+									</select>
+								</div>
 							</div>
-
-							<div th:if="${mode == 'ASESOR'}" class="form-group">
-								<label for="selectPacientes">Pacientes</label>
-								<select name="selectPacientes" class="form-control" th:field="*{idPaciente}">
-									<option th:each="paciente : ${pacientes}" th:value="${paciente.id}"
-										th:text="${paciente.nombre} + ' ' + ${paciente.apellido}">
-									</option>
-								</select>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="doctor">Doctor</label>
+									<select name="doctor" class="form-control" th:field="*{idDoctor}">
+										<option value="0" hidden >Seleccione doctor</option>
+										<option th:each="doctor : ${medicos}" th:value="${doctor.id}"
+											th:text="${doctor.nombre} + ' ' +  ${doctor.apellido}">
+										</option>
+									</select>
+								</div>
 							</div>
-
-							<div class="form-group">
-								<label for="doctor">Doctor</label>
-								<select name="doctor" class="form-control" th:field="*{idDoctor}">
-									<option th:each="doctor : ${medicos}" th:value="${doctor.id}"
-										th:text="${doctor.nombre} + ' ' +  ${doctor.apellido}">
-									</option>
-								</select>
-							</div>
-
-							<div class="form-group">
-								<label for="fecha">fecha</label>
-								<div class="input-group">
-									<input type="text" id="fecha" class="form-control">
-									<input type="hidden" id="fecha-send" th:field="*{fecha}">
-									<div id="datePickerBtn" class="input-group-append">
-										<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="centro">Centro Medico</label>
+										<input type="text" class="form-control" id="centro" th:field="*{centroMedico}"
+											placeholder="Ingrese centro medico">
 									</div>
 								</div>
 							</div>
-
-							<div class="form-group">
-								<label for="fecha">Hora</label>
-								<input type="text" class="form-control" id="hora">
-								<input type="hidden" id="hora-send" th:field="*{hora}">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="fecha">Hora</label>
+										<input type="text" class="form-control" id="hora">
+										<input type="hidden" id="hora-send" th:field="*{hora}">
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+											<label for="fecha">fecha</label>
+											<div class="input-group">
+												<input type="text" id="fecha" class="form-control">
+												<input type="hidden" id="fecha-send" th:field="*{fecha}">
+												<div id="datePickerBtn" class="input-group-append">
+													<span class="input-group-text"><i class="fas fa-calendar"></i></span>
+												</div>
+											</div>
+										</div>	
+								</div>
 							</div>
-
-							<div class="form-group">
-								<label for="centro">Centro Medico</label>
-								<input type="text" class="form-control" id="centro" th:field="*{centroMedico}"
-									placeholder="Documento del empleado">
-							</div>
-
 							<button type="submit" class="btn btn-primary float-right"
 								th:text="${id > 0} ? 'Modificar' : 'Crear'"></button>
 						</form>
