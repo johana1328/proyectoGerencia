@@ -12,12 +12,11 @@ import edu.poli.citas.citasMedicas.model.NovedadModel;
 public abstract class NovedadMapper {
 
 	@Mapping(target = "cita", ignore = true)
-	@Mapping(target = "idCita", ignore = true)
 	public abstract NovedadDto toDto(NovedadModel source);
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "cita.id", source = "idCita")
-	public abstract NovedadModel toModel(NovedadDto source);
+	public abstract NovedadModel toModel(NovedadDto source, Long idCita);
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "cita.id", ignore = true)

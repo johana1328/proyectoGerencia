@@ -2,7 +2,7 @@ package edu.poli.citas.citasMedicas.dto;
 
 import java.io.Serializable;
 
-public class NovedadDto implements Serializable{
+public class NovedadDto implements Serializable {
 	/**
 	 * 
 	 */
@@ -10,8 +10,6 @@ public class NovedadDto implements Serializable{
 	private Long id;
 	private String observacion;
 	private CitaDto cita;
-	
-	private Long idCita;
 
 	public Long getId() {
 		return id;
@@ -35,14 +33,6 @@ public class NovedadDto implements Serializable{
 
 	public void setCita(CitaDto cita) {
 		this.cita = cita;
-	}
-
-	public Long getIdCita() {
-		return idCita;
-	}
-
-	public void setIdCita(Long idCita) {
-		this.idCita = idCita;
 	}
 
 }

@@ -13,7 +13,7 @@ import edu.poli.citas.citasMedicas.model.NovedadModel;
 import edu.poli.citas.citasMedicas.repository.NovedadRepository;
 
 @Service
-public class NovedadService implements CrudService<NovedadDto, Long> {
+public class NovedadService {
 
 	@Autowired
 	private NovedadMapper mapper;
@@ -21,14 +21,14 @@ public class NovedadService implements CrudService<NovedadDto, Long> {
 	@Autowired
 	private NovedadRepository repository;
 
-	@Override
+	
 	public List<NovedadDto> getList() {
 		List<NovedadModel> resultList = repository.findAll();
 		return resultList.stream().map(mapper::toDto).collect(Collectors.toList());
 
 	}
 
-	@Override
+	
 	public Optional<NovedadDto> getById(Long id) {
 		Optional<NovedadModel> oprioalResult = repository.findById(id);
 		if (oprioalResult.isPresent()) {
@@ -38,14 +38,14 @@ public class NovedadService implements CrudService<NovedadDto, Long> {
 		return Optional.empty();
 	}
 
-	@Override
-	public NovedadDto create(NovedadDto dto) {
-		NovedadModel model = mapper.toModel(dto);
+
+	public NovedadDto create(NovedadDto dto, Long idCita) {
+		NovedadModel model = mapper.toModel(dto, idCita);
 		model = repository.save(model);
 		return mapper.toDto(model);
 	}
 
-	@Override
+	
 	public NovedadDto update(NovedadDto dto, Long id) throws Exception {
 		Optional<NovedadModel> oprioalResult = repository.findById(id);
 		if (oprioalResult.isPresent()) {
@@ -57,7 +57,7 @@ public class NovedadService implements CrudService<NovedadDto, Long> {
 		throw new Exception("Error novedad no valida");
 	}
 
-	@Override
+	
 	public void delete(Long id) throws Exception {
 		Optional<NovedadModel> oprioalResult = repository.findById(id);
 		if (oprioalResult.isPresent()) {
