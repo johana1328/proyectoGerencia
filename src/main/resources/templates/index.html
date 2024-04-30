@@ -13,15 +13,53 @@
 			<section class="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
-						<div class="col-sm-6">
+						<div class="col-sm-12">
+							 <blockquote class="quote-secondary">
+							<h1 style="text-align: center;">Bienvenidos</h1>
+							 </blockquote>
 						</div>
 					</div>
 				</div>
 			</section>
 			<section class="content">
 				<div class="row">
-				<div class="col-md-8 d-flex justify-content-center">
+					<div class="col-6">
+		            <!-- Custom Tabs -->
 		            <div class="card">
+		              <div class="card-header d-flex p-0">
+		                <h3 class="card-title p-3">Consejos medicos</h3>
+		                <ul class="nav nav-pills ml-auto p-2">
+		                  <li class="nav-item"><a class="nav-link active " href="#tab_1" data-toggle="tab" >Consejo 1</a></li>
+		                  <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Consejo 2</a></li>
+		                  <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Consejo 3</a></li>
+		                
+		                </ul>
+		              </div><!-- /.card-header -->
+		              <div class="card-body">
+		                <div class="tab-content">
+		                  <div class="tab-pane active" id="tab_1">
+		                    <strong> Recibe las vacunas </strong> <br>
+		                     El VPH es un virus de trasmisión sexual que puede derivar en cáncer del cuello del útero y otros tipos de cáncer genital, así como cáncer de células escamosas de la cabeza y el cuello. La vacuna contra el VPH se recomienda para niñas y niños de 11 y 12 años.
+		                  </div>
+		                  <!-- /.tab-pane -->
+		                  <div class="tab-pane" id="tab_2">
+		                   <strong>Las prácticas y hábitos de higiene bucal deben mantenerse</strong> <br>
+		                   La higiene después del consumo de alimentos, el uso de cantidades mínimas de crema dental con flúor, junto con el uso de seda dental, el manejo adecuado de técnicas de cepillado y la visita regular al odontólogo para recibir orientaciones de cuidado, prevención
+		                  </div>
+		                  <!-- /.tab-pane -->
+		                  <div class="tab-pane" id="tab_3">
+							<strong>Prevencion</strong> <br>
+		                    Usted puede reducir su riesgo de contraer muchos tipos comunes de cáncer si toma decisiones saludables. Las pruebas de detección pueden detectar algunos cánceres de manera temprana, cuando el tratamiento es más eficaz. Las vacunas (inyecciones) pueden ayudar a prevenir varios tipos de cáncer. Obtenga más información sobre cómo reducir su riesgo de contraer cáncer.
+		                  </div>
+		                  <!-- /.tab-pane -->
+		                </div>
+		                <!-- /.tab-content -->
+		              </div><!-- /.card-body -->
+		            </div>
+		            <!-- ./card -->
+		          </div>
+				<div class="col-md-6">
+		            <div class="card  mx-auto">
 		              <div class="card-header">
 		              </div>
 		              <!-- /.card-header -->
@@ -34,13 +72,13 @@
 		                  </ol>
 		                  <div class="carousel-inner">
 		                    <div class="carousel-item active">
-		                      <img class="d-block w-100" src="https://placehold.it/900x500/39CCCC/ffffff&text=I+Love+Bootstrap" alt="First slide">
+		                      <img class="d-block w-100" th:src="@{/public/img/img1.jpg}" alt="First slide">
 		                    </div>
 		                    <div class="carousel-item">
-		                      <img class="d-block w-100" src="https://placehold.it/900x500/3c8dbc/ffffff&text=I+Love+Bootstrap" alt="Second slide">
+		                      <img class="d-block w-100 " th:src="@{/public/img/img2.jpg}" alt="Second slide">
 		                    </div>
 		                    <div class="carousel-item">
-		                      <img class="d-block w-100" src="https://placehold.it/900x500/f39c12/ffffff&text=I+Love+Bootstrap" alt="Third slide">
+		                      <img class="d-block w-100" th:src="@{/public/img/img3.jpg}" alt="Third slide">
 		                    </div>
 		                  </div>
 		                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
