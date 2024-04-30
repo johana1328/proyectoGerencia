@@ -24,6 +24,17 @@
 			<section class="content">
 				<div class="card">
 					<div class="card-body">
+						
+						<div class="alert alert-success alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h5 style="display: inline;" <i class="icon fas fa-check"> OK!</h5>
+							<span th:if="${novadad == 'create'}">Novedad creada correctamente.</span>
+							<span th:if="${novadad == 'delete'}">Novedad eliminada correctamente.</span>
+							<span th:if="${examen == 'create'}">Examen creado correctamente.</span>
+							<span th:if="${examen == 'delete'}">Examen asignado correctamente.</span>
+							<span th:if="${medicamento == 'create'}">Medicamento ordenado correctamente.</span>
+							<span th:if="${medicamento == 'delete'}">Medicamento eliminado correctamente.</span>
+						</div>
 
 						<div class="callout callout-info">
 							<h5><i class="fas fa-info"></i> Nota:</h5>
@@ -80,20 +91,20 @@
 								<div class="col-5 col-sm-2">
 									<div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist"
 										aria-orientation="vertical">
-										<a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill"
+										<a  th:class="${novadad != 'NA'} ? 'nav-link active' : 'nav-link'" id="vert-tabs-home-tab" data-toggle="pill"
 											href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home"
-											aria-selected="true">Novedades</a>
-										<a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill"
+											th:aria-selected="${novadad != 'NA'}">Novedades</a>
+										<a th:class="${examen != 'NA'} ? 'nav-link active' : 'nav-link'"  id="vert-tabs-profile-tab" data-toggle="pill"
 											href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile"
-											aria-selected="false">Exámenes</a>
-										<a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill"
+											th:aria-selected="${examen != 'NA'}">Exámenes</a>
+										<a th:class="${medicamento != 'NA'} ? 'nav-link active' : 'nav-link'"  id="vert-tabs-messages-tab" data-toggle="pill"
 											href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages"
-											aria-selected="false">Medicamentos</a>
+											th:aria-selected="${medicamento != 'NA'}">Medicamentos</a> 
 									</div>
 								</div>
 								<div class="col-7 col-sm-10">
 									<div class="tab-content" id="vert-tabs-tabContent">
-										<div class="tab-pane text-left fade show active" id="vert-tabs-home"
+										<div th:class="${novadad != 'NA'} ? 'tab-pane text-left fade show active' : 'tab-pane text-left'"   id="vert-tabs-home"
 											role="tabpanel" aria-labelledby="vert-tabs-home-tab">
 											<div th:if="${#lists.size(novedades) == 0}">
 												<p>No existen Novedades para el paciente.</p>
@@ -107,7 +118,7 @@
 													class="fas fa-trash-alt deleteItemNovedad"></i>
 											</div>
 										</div>
-										<div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel"
+										<div th:class="${examen != 'NA'} ? 'tab-pane fade show active' : 'tab-pane fade'"  id="vert-tabs-profile" role="tabpanel"
 											aria-labelledby="vert-tabs-profile-tab">
 											<div th:each="autorizacion : ${autorizaciones}">
 												<input type="hidden" id="idautorizacion"
@@ -143,7 +154,7 @@
 												<br />
 											</div>
 										</div>
-										<div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel"
+										<div th:class="${medicamento != 'NA'} ? 'tab-pane fade show active' : 'tab-pane fade'"  id="vert-tabs-messages" role="tabpanel"
 											aria-labelledby="vert-tabs-messages-tab">
 											<div th:each="autorizacion : ${autorizaciones}">
 												<p th:if="${#lists.size(medicamentos) == 0}">El paciente no
@@ -168,7 +179,7 @@
 												<p style="display: inline; margin-right: 10px;" class="text-muted"
 													th:text="${medicamento.posologia}">Examen</p>
 												<i th:data-id="${medicamento.id}" style="color: red;"
-													class="fas fa-trash-alt deleteExamen"></i>
+													class="fas fa-trash-alt deleteMedicamento"></i>
 												<br />
 												<br />
 											</div>

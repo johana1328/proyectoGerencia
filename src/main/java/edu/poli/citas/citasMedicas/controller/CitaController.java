@@ -63,7 +63,11 @@ public class CitaController {
 	}
 
 	@GetMapping("/{id}/detail")
-	public String viewDetail(Model model, @PathVariable Optional<Long> id) {
+	public String viewDetail(Model model, @PathVariable Optional<Long> id,
+			@RequestParam(name = "novadad", defaultValue = "NA") String novadad,
+			@RequestParam(name = "autorizacion", defaultValue = "NA") String autorizacion,
+			@RequestParam(name = "examen", defaultValue = "NA") String examen,
+			@RequestParam(name = "medicamento", defaultValue = "NA") String medicamento) {
 		CitaDto cita = service.getById(id.get()).get();
 		Optional<EmpleadoDto> doctor = empleadoService.getById(cita.getDoctor().getId());
 		List<AutorizacionDto> autorizaciones = autorizacionService.listByCita(id.get());
@@ -74,6 +78,10 @@ public class CitaController {
 			examenes = examenService.listByAutorizacionId(autorizaciones.get(0).getId());
 			medicamentos = medicamentoService.listByAutorizacionId(autorizaciones.get(0).getId());
 		}
+		model.addAttribute("novadad", novadad);
+		model.addAttribute("autorizacion", autorizacion);
+		model.addAttribute("examen", examen);
+		model.addAttribute("medicamento", medicamento);
 		model.addAttribute("medicamentos", medicamentos);
 		model.addAttribute("examenes", examenes);
 		model.addAttribute("autorizaciones", autorizaciones);
