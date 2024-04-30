@@ -75,7 +75,7 @@ function crearExamen() {
 		body: JSON.stringify({ tipo: tipo, centroMedico: centroMedico, fechaExamen: fechaExamen })
 	}).then(response => {
 		if (response.status === 201) {
-			window.location.href = window.location.origin + window.location.pathname + "?novadad=create";
+			window.location.href = window.location.origin + window.location.pathname + "?examen=create";
 		} else {
 			alert("Error al crear novedad");
 		}
@@ -94,7 +94,7 @@ function deleteExamen(idExamen) {
 		}
 	}).then(response => {
 		if (response.status === 200) {
-			window.location.href = window.location.origin + window.location.pathname + "?novadad=delete";
+			window.location.href = window.location.origin + window.location.pathname + "?examen=delete";
 		} else {
 			alert("Error al crear novedad");
 		}

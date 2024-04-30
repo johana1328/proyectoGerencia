@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.poli.citas.citasMedicas.dto.MedicamentoDto;
 import edu.poli.citas.citasMedicas.mapper.MedicamentoMapper;
 import edu.poli.citas.citasMedicas.model.AutorizacionModel;
+import edu.poli.citas.citasMedicas.model.ExamenModel;
 import edu.poli.citas.citasMedicas.model.MedicamentoModel;
 import edu.poli.citas.citasMedicas.repository.AutorizacionRepository;
 import edu.poli.citas.citasMedicas.repository.MedicamentoRepository;
@@ -73,7 +74,12 @@ public class MedicamentoService implements CrudService<MedicamentoDto, Long> {
 	@Override
 	@Transactional
 	public void delete(Long id) throws Exception {
-
+		Optional<MedicamentoModel> oprioalResult = repository.findById(id);
+		if (oprioalResult.isPresent()) {
+			repository.deleteByidOpt(id);
+			return;
+		}
+		throw new Exception("Error examen no valido");
 	}
 
 	public List<MedicamentoDto> listByAutorizacionId(Long idAutroizacion) {

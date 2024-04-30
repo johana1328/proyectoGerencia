@@ -28,10 +28,10 @@ public class MedicamentoController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@DeleteMapping(path = "/{id_examen}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/{id_medicamento}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> delete(@PathVariable(name = "id_autorizacion") Long idAutorizacion,
-			@PathVariable(name = "id_examen") Long idExamen) throws Exception {
-		service.delete(idExamen);
+			@PathVariable(name = "id_medicamento") Long idMedicamento) throws Exception {
+		service.delete(idMedicamento);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
