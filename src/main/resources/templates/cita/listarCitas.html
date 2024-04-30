@@ -49,7 +49,7 @@
 							</thead>
 							<tbody>
 								<tr th:each="cita:${citas}">
-									<td th:text="${cita.especialidad}" ></td>
+									<td th:text="${cita.especialidad}"></td>
 									<td th:text="${cita.doctor.nombre}+' ' +${cita.doctor.apellido}"></td>
 									<td th:text="${cita.fecha}"></td>
 									<td th:text="${T(edu.poli.citas.citasMedicas.Utilidad).formatHour(cita.hora)}"></td>
@@ -69,31 +69,29 @@
 											</i> <span
 												th:text="${T(edu.poli.citas.citasMedicas.Utilidad).processDetail(cita.fecha,cita.hora)}" /></small>
 									</td>
-									<td style="width: 180px;">
-										<a th:href="@{/cita/update/{id}(id=${cita.id})}"
+									<td id="acciones">
+										<a sec:authorize="hasAuthority('ASESOR') OR hasRole('PACIENTE')" th:href="@{/cita/update/{id}(id=${cita.id})}"
 											class="btn btn-outline-primary btn-block float-left btntable">
-											<i class="fa fa-pencil-alt"></i>
+											<i class="gTable fa fa-pencil-alt"></i>
 										</a>
 
-										<a th:href="@{/cita/{id}/detail(id=${cita.id})}"
+										<a sec:authorize="hasAuthority('ASESOR') OR hasRole('PACIENTE')" th:href="@{/cita/{id}/detail(id=${cita.id})}"
 											class="btn btn-outline-primary btn-block btntable btndetail">
-											<i class="fa fa-eye"></i>
+											<i class="gTable fa fa-eye"></i>
 										</a>
 
-										<a th:href="@{/cita/{id}/detail(id=${cita.id})}"
+										<a sec:authorize="hasAuthority('MEDICO')" th:href="@{/cita/{id}/detail(id=${cita.id})}"
 											class="btn btn-outline-primary btn-block btntable btndetail">
 											<i class="fas fa-user-md"></i>
 										</a>
 
-										<form method="post" th:action="@{/cita/delete/{id}(id=${cita.id})}">
+										<form sec:authorize="hasAuthority('ASESOR') OR hasRole('PACIENTE')" method="post" th:action="@{/cita/delete/{id}(id=${cita.id})}">
 											<button type="submit" style="margin-top: 1px;"
 												class="btn btn-outline-danger btn-block float-right btntable">
-												<i class="fa fa-ban"></i>
+												<i class="gTable fa fa-ban"></i>
 											</button>
 											</a>
 										</form>
-
-
 									</td>
 									</td>
 								</tr>
@@ -116,6 +114,11 @@
 				"autoWidth": false,
 				"responsive": true,
 			});
+
+			let nr_li = $("#acciones  i.gTable").length;
+			let nr_li2 = $("#acciones > form  i.gTable").length;
+			let calc = (nr_li + nr_li2) * 45;
+			$("#acciones").css("width", calc);
 		});
 	</script>
 </body>

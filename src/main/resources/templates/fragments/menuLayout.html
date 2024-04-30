@@ -6,7 +6,7 @@
 			</ul>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a   class="nav-link" data-widget="control-sidebar" data-slide="true" th:href="@{/}" role="button">
+					<a   class="nav-link" data-widget="control-sidebar" data-slide="true" onclick="document.getElementById('logout').submit();" role="button">
 						<i class="fa fa-sign-out-alt" aria-hidden="true">Salir</i>
 					</a>
 				</li>
@@ -21,7 +21,7 @@
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
 					<div class="info">
-						<a href="#" class="d-block">Alexander Pierce</a>
+						<a href="#" class="d-block" th:text="${#authentication.principal.username}">Alexander Pierce</a>
 					</div>
 				</div>
 				<nav class="mt-2">
@@ -29,7 +29,7 @@
 						data-accordion="false">
 						<li class="nav-item">
 						</li>
-						<li class="nav-item">
+						<li sec:authorize="hasAuthority('ASESOR')" class="nav-item">
 							<a th:href="@{/especialidad}" class="nav-link">
 								<i class="nav-icon far fa-image"></i>
 								<p>
@@ -37,7 +37,7 @@
 								</p>
 							</a>
 						</li>
-						<li class="nav-item">
+						<li sec:authorize="hasAuthority('ASESOR')" class="nav-item">
 							<a th:href="@{/empleado}" class="nav-link">
 								<i class="nav-icon far fa-image"></i>
 								<p>
@@ -45,7 +45,7 @@
 								</p>
 							</a>
 						</li>
-						<li class="nav-item">
+						<li sec:authorize="hasAuthority('ASESOR')" class="nav-item">
 							<a th:href="@{/paciente}" class="nav-link">
 								<i class="nav-icon far fa-image"></i>
 								<p>
@@ -66,5 +66,7 @@
 				</nav>
 			</div>
 		</aside>
+		 <form  id="logout" th:action="@{/logout}" method="post">
+        </form>
 		
 </html>

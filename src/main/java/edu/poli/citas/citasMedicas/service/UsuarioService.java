@@ -61,7 +61,8 @@ public class UsuarioService  implements CrudService<UsuarioDto, Long>{
 			return;
 		}
 		throw new Exception("Error usuario no valido");
-		
 	}
+	
+	
 
 }
