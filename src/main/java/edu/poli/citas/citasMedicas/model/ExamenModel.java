@@ -29,8 +29,8 @@ public class ExamenModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "examenes")
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "autorizacion")
 	private AutorizacionModel autorizacion;
 
 	@Column(name = "TIPO", length = 100)
