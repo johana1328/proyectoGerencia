@@ -31,7 +31,7 @@
 							<span th:if="${accionOk == 'update'}">Registro actualizado correctamente.</span>
 							<span th:if="${accionOk == 'delete'}">Registro eliminado correctamente.</span>
 						</div>
-						<a th:href="@{/cita/create}" class="btn btn-primary float-right">Agendar Cita</a>
+						<a sec:authorize="hasAuthority('ASESOR') OR hasAuthority('PACIENTE') " th:href="@{/cita/create}" class="btn btn-primary float-right">Agendar Cita</a>
 
 
 						<br /><br />
