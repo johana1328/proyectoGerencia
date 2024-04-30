@@ -14,7 +14,7 @@
 	 </nav>
 	 
 	 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-			<a href="#" class="brand-link" style="text-align: center;">
+			<a th:href="@{/inicio}" class="brand-link" style="text-align: center;">
 				<h2>Admin Salud</h2>
 			</a>
 			<div class="sidebar">
@@ -31,7 +31,7 @@
 						</li>
 						<li sec:authorize="hasAuthority('ASESOR')" class="nav-item">
 							<a th:href="@{/especialidad}" class="nav-link">
-								<i class="nav-icon far fa-image"></i>
+								<i class="fa fa-check" aria-hidden="true"> </i>
 								<p>
 									Especialidades
 								</p>
@@ -39,7 +39,7 @@
 						</li>
 						<li sec:authorize="hasAuthority('ASESOR')" class="nav-item">
 							<a th:href="@{/empleado}" class="nav-link">
-								<i class="nav-icon far fa-image"></i>
+								<i class="fa fa-check" aria-hidden="true"> </i>
 								<p>
 									Empleados
 								</p>
@@ -47,7 +47,7 @@
 						</li>
 						<li sec:authorize="hasAuthority('ASESOR')" class="nav-item">
 							<a th:href="@{/paciente}" class="nav-link">
-								<i class="nav-icon far fa-image"></i>
+								<i class="fa fa-check" aria-hidden="true"> </i>
 								<p>
 									Pacientes
 								</p>
@@ -55,7 +55,7 @@
 						</li>
 						<li class="nav-item">
 							<a th:href="@{/cita}" class="nav-link">
-								<i class="nav-icon far fa-image"></i>
+								<i class="fa fa-check" aria-hidden="true"> </i>
 								<p>
 									Citas
 								</p>
