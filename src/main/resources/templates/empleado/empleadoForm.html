@@ -30,7 +30,7 @@
 						<form method="post"
 							th:action="${id > 0} ? @{/empleado/update/{id}(id=${empleado.id})} : @{/empleado/create}"
 							th:object="${empleado}">
-							<input th:if="${mode == 'asesor'}" type="hidden" th:value="6" th:attr="name='especialidad.id'">
+							<input th:if="${mode == 'asesor'}" type="hidden" th:value="1" th:attr="name='especialidad.id'">
 							<input type="hidden" th:value="${mode == 'asesor'}?'ASESOR':'MEDICO'" name="tipoEmpleado">
 							<div class="row">
 								<div class="col-sm-6">

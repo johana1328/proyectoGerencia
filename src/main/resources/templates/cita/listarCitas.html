@@ -70,12 +70,12 @@
 												th:text="${T(edu.poli.citas.citasMedicas.Utilidad).processDetail(cita.fecha,cita.hora)}" /></small>
 									</td>
 									<td id="acciones">
-										<a sec:authorize="hasAuthority('ASESOR') OR hasRole('PACIENTE')" th:href="@{/cita/update/{id}(id=${cita.id})}"
+										<a sec:authorize="hasAuthority('ASESOR') OR hasAuthority('PACIENTE')" th:href="@{/cita/update/{id}(id=${cita.id})}"
 											class="btn btn-outline-primary btn-block float-left btntable">
 											<i class="gTable fa fa-pencil-alt"></i>
 										</a>
 
-										<a sec:authorize="hasAuthority('ASESOR') OR hasRole('PACIENTE')" th:href="@{/cita/{id}/detail(id=${cita.id})}"
+										<a sec:authorize="hasAuthority('ASESOR') OR hasAuthority('PACIENTE')" th:href="@{/cita/{id}/detail(id=${cita.id})}"
 											class="btn btn-outline-primary btn-block btntable btndetail">
 											<i class="gTable fa fa-eye"></i>
 										</a>
@@ -85,7 +85,7 @@
 											<i class="fas fa-user-md"></i>
 										</a>
 
-										<form sec:authorize="hasAuthority('ASESOR') OR hasRole('PACIENTE')" method="post" th:action="@{/cita/delete/{id}(id=${cita.id})}">
+										<form sec:authorize="hasAuthority('ASESOR') OR hasAuthority('PACIENTE')" method="post" th:action="@{/cita/delete/{id}(id=${cita.id})}">
 											<button type="submit" style="margin-top: 1px;"
 												class="btn btn-outline-danger btn-block float-right btntable">
 												<i class="gTable fa fa-ban"></i>
@@ -116,7 +116,7 @@
 			});
 
 			let nr_li = $("#acciones  i.gTable").length;
-			let nr_li2 = $("#acciones > form  i.gTable").length;
+			//let nr_li2 = $("#acciones > form  i.gTable").length;
 			let calc = (nr_li + nr_li2) * 45;
 			$("#acciones").css("width", calc);
 		});

@@ -118,7 +118,7 @@
 
 												<p style="display: inline; margin-right: 10px;" class="text-muted"
 													th:text="${novedad.observacion}">novedad</p>
-												<i th:data-id="${novedad.id}" style="color: red;"
+												<i sec:authorize="hasAuthority('MEDICO')" th:data-id="${novedad.id}" style="color: red;"
 													class="fas fa-trash-alt deleteItemNovedad"></i>
 											</div>
 										</div>
@@ -150,10 +150,10 @@
 												<p style="display: inline; margin-right: 10px;" class="text-muted"
 													th:text="${examen.fechaExamen}">Examen</p>
 												<br />
-												<strong slot="padding-left: 20px;">Resultados: </strong>
+												<strong sec:authorize="hasAuthority('MEDICO') OR hasAuthority('PACIENTE')" slot="padding-left: 20px;">Resultados: 0.5%</strong>
 												<p style="display: inline; margin-right: 10px;" class="text-muted"
 													th:text="${examen.resultado}">Examen</p>
-												<i th:data-id="${examen.id}" style="color: red;"
+												<i sec:authorize="hasAuthority('MEDICO') " th:data-id="${examen.id}" style="color: red;"
 													class="fas fa-trash-alt deleteExamen"></i>
 												<br />
 												<br />
@@ -184,7 +184,7 @@
 												<strong slot="padding-left: 20px;">Posologia: </strong>
 												<p style="display: inline; margin-right: 10px;" class="text-muted"
 													th:text="${medicamento.posologia}">Examen</p>
-												<i th:data-id="${medicamento.id}" style="color: red;"
+												<i sec:authorize="hasAuthority('MEDICO')" th:data-id="${medicamento.id}" style="color: red;"
 													class="fas fa-trash-alt deleteMedicamento"></i>
 												<br />
 												<br />
@@ -194,7 +194,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12">
+						<div class="col-12" sec:authorize="hasAuthority('MEDICO')" >
 							<div class="btn-group float-right">
 								<button type="button" class="btn btn-primary">Agregar Indicaciones paciente</button>
 								<button type="button"

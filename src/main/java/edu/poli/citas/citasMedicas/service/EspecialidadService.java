@@ -23,7 +23,7 @@ public class EspecialidadService implements CrudService<EspecialidadDto, Long> {
 
 	@Override
 	public List<EspecialidadDto> getList() {
-		List<EspecialidadModel> resultList = repository.findAll();
+		List<EspecialidadModel> resultList = repository.getEspecialidadesByDoctor();
 		return resultList.stream().map(mapper::toDto).collect(Collectors.toList());
 	}
 
