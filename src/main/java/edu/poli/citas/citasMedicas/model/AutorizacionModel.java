@@ -42,11 +42,11 @@ public class AutorizacionModel implements Serializable {
 	@Column(name = "DESCRIPCION", length = 200)
 	private String descripcion;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "autorizacion")
 	private List<MedicamentoModel> medicamentos;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "autorizacion")
 	private List<ExamenModel> examenes;
 

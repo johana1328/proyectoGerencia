@@ -6,20 +6,26 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.poli.citas.citasMedicas.dto.ExamenDto;
 import edu.poli.citas.citasMedicas.mapper.ExamenMapper;
+import edu.poli.citas.citasMedicas.model.AutorizacionModel;
 import edu.poli.citas.citasMedicas.model.ExamenModel;
+import edu.poli.citas.citasMedicas.repository.AutorizacionRepository;
 import edu.poli.citas.citasMedicas.repository.ExamenRespository;
 
 @Service
-public class ExamenService implements CrudService<ExamenDto, Long>{
-	
+public class ExamenService implements CrudService<ExamenDto, Long> {
+
 	@Autowired
 	private ExamenMapper mapper;
-	
+
 	@Autowired
 	private ExamenRespository repository;
+
+	@Autowired
+	private AutorizacionRepository autorizacionRepository;
 
 	@Override
 	public List<ExamenDto> getList() {
@@ -44,6 +50,14 @@ public class ExamenService implements CrudService<ExamenDto, Long>{
 		return mapper.toDto(model);
 	}
 
+	public ExamenDto create(ExamenDto dto, long idAutorizacion) {
+		ExamenModel model = mapper.toModel(dto);
+		Optional<AutorizacionModel> autModel = autorizacionRepository.findById(idAutorizacion);
+		model.setAutorizacion(autModel.get());
+		model = repository.save(model);
+		return mapper.toDto(model);
+	}
+
 	@Override
 	public ExamenDto update(ExamenDto dto, Long id) throws Exception {
 		Optional<ExamenModel> oprioalResult = repository.findById(id);
@@ -56,15 +70,20 @@ public class ExamenService implements CrudService<ExamenDto, Long>{
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) throws Exception {
 		Optional<ExamenModel> oprioalResult = repository.findById(id);
 		if (oprioalResult.isPresent()) {
-			repository.delete(oprioalResult.get());
+			repository.deleteByidOpt(id);
 			return;
 		}
 		throw new Exception("Error examen no valido");
 
-		
+	}
+
+	public List<ExamenDto> listByAutorizacionId(Long idAutroizacion) {
+		List<ExamenModel> resultList = repository.listByAutorizacionId(idAutroizacion);
+		return resultList.stream().map(mapper::toDto).collect(Collectors.toList());
 	}
 
 }

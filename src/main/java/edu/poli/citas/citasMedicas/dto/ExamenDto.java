@@ -3,6 +3,8 @@ package edu.poli.citas.citasMedicas.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ExamenDto implements Serializable {
 
 	/**
@@ -13,6 +15,7 @@ public class ExamenDto implements Serializable {
 	private AutorizacionDto autorizacion;
 	private String tipo;
 	private String centroMedico;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date fechaExamen;
 	private String resultado;
 

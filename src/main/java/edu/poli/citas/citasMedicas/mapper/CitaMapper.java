@@ -1,11 +1,16 @@
 package edu.poli.citas.citasMedicas.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import edu.poli.citas.citasMedicas.dto.AutorizacionDto;
 import edu.poli.citas.citasMedicas.dto.CitaDto;
+import edu.poli.citas.citasMedicas.dto.NovedadDto;
+import edu.poli.citas.citasMedicas.dto.UsuarioDto;
 import edu.poli.citas.citasMedicas.model.CitaModel;
 
 
@@ -20,6 +25,7 @@ public abstract class CitaMapper {
 	@Mapping(target = "paciente.citas",ignore = true)
 	@Mapping(target = "novedades" , ignore= true)
 	@Mapping(target = "especialidad" , ignore= true)
+	@Mapping(target = "autorizacion" , ignore= true)
 	public abstract CitaDto toDto(CitaModel source);
 
 	@Mapping(target = "id", ignore = true)

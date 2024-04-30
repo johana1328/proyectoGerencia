@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import edu.poli.citas.citasMedicas.dto.NovedadDto;
 import edu.poli.citas.citasMedicas.mapper.NovedadMapper;
+import edu.poli.citas.citasMedicas.model.CitaModel;
 import edu.poli.citas.citasMedicas.model.NovedadModel;
+import edu.poli.citas.citasMedicas.repository.CitaRepository;
 import edu.poli.citas.citasMedicas.repository.NovedadRepository;
 
 @Service
@@ -21,14 +23,14 @@ public class NovedadService {
 	@Autowired
 	private NovedadRepository repository;
 
-	
-	public List<NovedadDto> getList() {
+	@Autowired
+	private CitaRepository citaRepository;
+
+	public List<NovedadDto> getList(Long idCita) {
 		List<NovedadModel> resultList = repository.findAll();
 		return resultList.stream().map(mapper::toDto).collect(Collectors.toList());
-
 	}
 
-	
 	public Optional<NovedadDto> getById(Long id) {
 		Optional<NovedadModel> oprioalResult = repository.findById(id);
 		if (oprioalResult.isPresent()) {
@@ -38,14 +40,14 @@ public class NovedadService {
 		return Optional.empty();
 	}
 
-
 	public NovedadDto create(NovedadDto dto, Long idCita) {
 		NovedadModel model = mapper.toModel(dto, idCita);
+		Optional<CitaModel> citaop = citaRepository.findById(idCita);
+		model.setCita(citaop.get());
 		model = repository.save(model);
 		return mapper.toDto(model);
 	}
 
-	
 	public NovedadDto update(NovedadDto dto, Long id) throws Exception {
 		Optional<NovedadModel> oprioalResult = repository.findById(id);
 		if (oprioalResult.isPresent()) {
@@ -57,7 +59,6 @@ public class NovedadService {
 		throw new Exception("Error novedad no valida");
 	}
 
-	
 	public void delete(Long id) throws Exception {
 		Optional<NovedadModel> oprioalResult = repository.findById(id);
 		if (oprioalResult.isPresent()) {
@@ -66,6 +67,11 @@ public class NovedadService {
 		}
 		throw new Exception("Error novedad no valida");
 
+	}
+
+	public List<NovedadDto> listByCita(Long citsId) {
+		List<NovedadModel> resultList = repository.listBycitaId(citsId);
+		return resultList.stream().map(mapper::toDto).collect(Collectors.toList());
 	}
 
 }

@@ -14,11 +14,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.poli.citas.citasMedicas.dto.AutorizacionDto;
 import edu.poli.citas.citasMedicas.dto.CitaDto;
 import edu.poli.citas.citasMedicas.dto.EmpleadoDto;
+import edu.poli.citas.citasMedicas.dto.ExamenDto;
+import edu.poli.citas.citasMedicas.dto.MedicamentoDto;
+import edu.poli.citas.citasMedicas.dto.NovedadDto;
 import edu.poli.citas.citasMedicas.dto.PacienteDto;
+import edu.poli.citas.citasMedicas.service.AutorizacionService;
 import edu.poli.citas.citasMedicas.service.CitaService;
 import edu.poli.citas.citasMedicas.service.EmpleadoService;
+import edu.poli.citas.citasMedicas.service.ExamenService;
+import edu.poli.citas.citasMedicas.service.MedicamentoService;
+import edu.poli.citas.citasMedicas.service.NovedadService;
 import edu.poli.citas.citasMedicas.service.PacienteService;
 
 @Controller
@@ -34,6 +42,18 @@ public class CitaController {
 	@Autowired
 	private PacienteService pacienteService;
 
+	@Autowired
+	private NovedadService novedadService;
+
+	@Autowired
+	private AutorizacionService autorizacionService;
+
+	@Autowired
+	private ExamenService examenService;
+
+	@Autowired
+	private MedicamentoService medicamentoService;
+
 	@GetMapping({ "", "/" })
 	public String viewListar(Model model, @RequestParam(name = "accionOk", defaultValue = "NA") String accionOK) {
 		List<CitaDto> citas = service.getList();
@@ -41,13 +61,25 @@ public class CitaController {
 		model.addAttribute("citas", citas);
 		return "cita/listarCitas";
 	}
-	
+
 	@GetMapping("/{id}/detail")
-	public String viewDetail(Model model, @PathVariable Optional<Long> id ) {
-		CitaDto cita= service.getById(id.get()).get();
-		Optional<EmpleadoDto> doctor=   empleadoService.getById(cita.getDoctor().getId());
+	public String viewDetail(Model model, @PathVariable Optional<Long> id) {
+		CitaDto cita = service.getById(id.get()).get();
+		Optional<EmpleadoDto> doctor = empleadoService.getById(cita.getDoctor().getId());
+		List<AutorizacionDto> autorizaciones = autorizacionService.listByCita(id.get());
+		List<NovedadDto> listNovedades = novedadService.listByCita(id.get());
+		List<ExamenDto> examenes = new ArrayList<ExamenDto>();
+		List<MedicamentoDto> medicamentos = new ArrayList<MedicamentoDto>();
+		if (autorizaciones.size() > 0) {
+			examenes = examenService.listByAutorizacionId(autorizaciones.get(0).getId());
+			medicamentos = medicamentoService.listByAutorizacionId(autorizaciones.get(0).getId());
+		}
+		model.addAttribute("medicamentos", medicamentos);
+		model.addAttribute("examenes", examenes);
+		model.addAttribute("autorizaciones", autorizaciones);
+		model.addAttribute("novedades", listNovedades);
 		model.addAttribute("cita", cita);
-		model.addAttribute("doctor",doctor.get());
+		model.addAttribute("doctor", doctor.get());
 		return "cita/detail";
 	}
 
@@ -56,10 +88,10 @@ public class CitaController {
 		CitaDto cita = new CitaDto();
 		List<PacienteDto> pacientes = new ArrayList<>();
 		if (pacienteId.isPresent()) {
-			Optional<PacienteDto> pacienteOP =  pacienteService.getById(pacienteId.get());
+			Optional<PacienteDto> pacienteOP = pacienteService.getById(pacienteId.get());
 			model.addAttribute("paciente", pacienteOP.get());
 			model.addAttribute("mode", "USER");
-		}else {
+		} else {
 			pacientes = pacienteService.getList();
 			model.addAttribute("pacientes", pacientes);
 			model.addAttribute("mode", "ASESOR");
@@ -70,8 +102,8 @@ public class CitaController {
 		return "cita/citaForm";
 	}
 
-	@GetMapping({"/update/{id}"})
-	public String viewUpdate(@PathVariable Long id, Model model,  @PathVariable Optional<Long> pacienteId) {
+	@GetMapping({ "/update/{id}" })
+	public String viewUpdate(@PathVariable Long id, Model model, @PathVariable Optional<Long> pacienteId) {
 		Optional<CitaDto> cita = service.getById(id);
 		List<EmpleadoDto> medicos = empleadoService.getListMedicos();
 		model.addAttribute("mode", "USER");

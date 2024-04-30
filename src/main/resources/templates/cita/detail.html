@@ -10,6 +10,7 @@
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<div th:replace="~{fragments/menuLayout}" />
+		<input type="hidden" id="idCita" th:value="${cita.id}" />
 		<div class="content-wrapper">
 			<section class="content-header">
 				<div class="container-fluid">
@@ -94,34 +95,83 @@
 									<div class="tab-content" id="vert-tabs-tabContent">
 										<div class="tab-pane text-left fade show active" id="vert-tabs-home"
 											role="tabpanel" aria-labelledby="vert-tabs-home-tab">
-											<strong><i class="fas fa-pencil-alt mr-1"></i> Descripcion</strong>
-											<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing
-												elit. Etiam fermentum enim neque.</p>
+											<div th:if="${#lists.size(novedades) == 0}">
+												<p>No existen Novedades para el pacinete.</p>
+											</div>
+											<div th:each="novedad : ${novedades}">
+												<strong><i class="fa fa-heartbeat"></i> Descripcion: </strong>
+
+												<p style="display: inline; margin-right: 10px;" class="text-muted"
+													th:text="${novedad.observacion}">novedad</p>
+												<i th:data-id="${novedad.id}" style="color: red;"
+													class="fas fa-trash-alt deleteItemNovedad"></i>
+											</div>
 										</div>
 										<div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel"
 											aria-labelledby="vert-tabs-profile-tab">
-											Mauris tincidunt mi at erat gravida, eget tristique urna bibendum.
-											Mauris pharetra purus ut ligula tempor, et vulputate metus
-											facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-											Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-											posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus
-											interdum, nisl ligula placerat mi, quis posuere purus ligula eu
-											lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere
-											nec nunc. Nunc euismod pellentesque diam.
+											<div th:each="autorizacion : ${autorizaciones}">
+												<input type="hidden" id="idautorizacion"
+													th:value="${autorizacion.id}" />
+												<p th:if="${#lists.size(examenes) == 0}">El pacinete no
+													tiene Examenes pendientes</p>
+											</div>
+											<div th:if="${#lists.size(autorizaciones) == 0}">
+												<p>No existen autorizaciones para el paciente.</p>
+												<button onclick="createAutorizacionProcess()"
+													class="btn btn-primary">Iniciar proceso de
+													autorizacion</button>
+											</div>
+											<div th:each="examen : ${examenes}">
+												<strong><i class="fa fa-plus-square"></i> Tipo: </strong>
+												<p style="display: inline; margin-right: 10px;" class="text-muted"
+													th:text="${examen.tipo}">Examen</p>
+												<br />
+												<strong slot="padding-left: 20px;">Centro Medico: </strong>
+												<p style="display: inline; margin-right: 10px;" class="text-muted"
+													th:text="${examen.centroMedico}">Examen</p>
+												<br />
+												<strong slot="padding-left: 20px;">Fecha: </strong>
+												<p style="display: inline; margin-right: 10px;" class="text-muted"
+													th:text="${examen.fechaExamen}">Examen</p>
+												<br />
+												<strong slot="padding-left: 20px;">Resultados: </strong>
+												<p style="display: inline; margin-right: 10px;" class="text-muted"
+													th:text="${examen.resultado}">Examen</p>
+												<i th:data-id="${examen.id}" style="color: red;"
+													class="fas fa-trash-alt deleteExamen"></i>
+												<br />
+												<br />
+											</div>
 										</div>
 										<div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel"
 											aria-labelledby="vert-tabs-messages-tab">
-											Morbi turpis dolor, vulputate vitae felis non, tincidunt congue
-											mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus
-											faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac
-											tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum.
-											Suspendisse ut velit condimentum, mattis urna a, malesuada nunc.
-											Curabitur eleifend facilisis velit finibus tristique. Nam vulputate,
-											eros non luctus efficitur, ipsum odio volutpat massa, sit amet
-											sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida
-											fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel
-											metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare
-											magna.
+											<div th:each="autorizacion : ${autorizaciones}">
+												<p th:if="${#lists.size(medicamentos) == 0}">El paciente no
+													tiene medicamentos asignados.</p>
+											</div>
+											<div th:if="${#lists.size(autorizaciones) == 0}">
+												<p>No existen autorizaciones para el paciente.</p>
+												<button onclick="createAutorizacionProcess()" type="submit"
+													class="btn btn-primary">Iniciar proceso de
+													autorizacion</button>
+											</div>
+											<div th:each="medicamento : ${medicamentos}">
+												<strong><i class="fa fa-medkit"></i> Nombre: </strong>
+												<p style="display: inline; margin-right: 10px;" class="text-muted"
+													th:text="${medicamento.nombre}">Examen</p>
+												<br />
+												<strong slot="padding-left: 20px;">Cantidad: </strong>
+												<p style="display: inline; margin-right: 10px;" class="text-muted"
+													th:text="${medicamento.cantidad}">Examen</p>
+												<br />
+												<strong slot="padding-left: 20px;">Posologia: </strong>
+												<p style="display: inline; margin-right: 10px;" class="text-muted"
+													th:text="${medicamento.posologia}">Examen</p>
+												<i th:data-id="${medicamento.id}" style="color: red;"
+													class="fas fa-trash-alt deleteExamen"></i>
+												<br />
+												<br />
+											</div>
 										</div>
 									</div>
 								</div>
@@ -137,10 +187,10 @@
 								<div class="dropdown-menu" role="menu">
 									<a class="dropdown-item" href="#" data-toggle="modal"
 										data-target="#modal-novedad">Novedades</a>
-									<a class="dropdown-item" href="#" data-toggle="modal"
-										data-target="#modal-examen">Exámenes</a>
-									<a class="dropdown-item" href="#" data-toggle="modal"
-										data-target="#modal-medicamento">Medicamentos</a>
+									<a th:if="${#lists.size(autorizaciones) > 0}" class="dropdown-item" href="#"
+										data-toggle="modal" data-target="#modal-examen">Exámenes</a>
+									<a th:if="${#lists.size(autorizaciones) > 0}" class="dropdown-item" href="#"
+										data-toggle="modal" data-target="#modal-medicamento">Medicamentos</a>
 								</div>
 							</div>
 
@@ -165,14 +215,14 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="centro">Observación</label>
-						<textarea class="form-control" rows="3" placeholder="Ingrese la observación del paciente"
-							style="height: 83px;"></textarea>
+						<textarea id="observacioNovedad" class="form-control" rows="3"
+							placeholder="Ingrese la observación del paciente" style="height: 83px;"></textarea>
 					</div>
 
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-primary">Guardar</button>
+					<button type="button" class="btn btn-primary" onclick="createNovedad()">Guardar</button>
 				</div>
 			</div>
 		</div>
@@ -191,11 +241,11 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="centro">Tipo Examen</label>
-						<input type="text" class="form-control" id="centro" placeholder="Tipo examen">
+						<input type="text" class="form-control" id="tipoExamen" placeholder="Tipo examen">
 					</div>
 					<div class="form-group">
 						<label for="centro">Centro Medico</label>
-						<input type="text" class="form-control" id="centro" placeholder="Centro medico">
+						<input type="text" class="form-control" id="centroExamen" placeholder="Centro medico">
 					</div>
 					<div class="form-group">
 						<label for="fecha">Fecha</label>
@@ -210,7 +260,7 @@
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-primary">Guardar</button>
+					<button type="button" class="btn btn-primary" onclick="crearExamen()">Guardar</button>
 				</div>
 			</div>
 		</div>
@@ -229,20 +279,20 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="centro">Nombre medicamento</label>
-						<input type="text" class="form-control" id="centro" placeholder="Medicamento">
+						<input type="text" class="form-control" id="nombreMedicamento" placeholder="Medicamento">
 					</div>
 					<div class="form-group">
 						<label for="centro">Cantidad</label>
-						<input type="text" class="form-control" id="centro" placeholder="Cantidad">
+						<input type="text" class="form-control" id="cantidadMedicamento" placeholder="Cantidad">
 					</div>
 					<div class="form-group">
 						<label for="centro">Posologia</label>
-						<input type="text" class="form-control" id="centro" placeholder="Posologia">
+						<input type="text" class="form-control" id="posoligiaMedivamento" placeholder="Posologia">
 					</div>
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-primary">Guardar</button>
+					<button type="button" class="btn btn-primary" onclick="crearMedicamento()">Guardar</button>
 				</div>
 			</div>
 		</div>

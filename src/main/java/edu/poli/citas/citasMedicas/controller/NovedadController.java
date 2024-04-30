@@ -23,8 +23,7 @@ public class NovedadController {
 	private NovedadService service;
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> crear(@RequestBody NovedadDto novedad, @PathVariable(name = "id_cita") Long idCita,
-			@PathVariable(name = "id_novedad") Long idNovedad) {
+	public ResponseEntity<?> crear(@RequestBody NovedadDto novedad, @PathVariable(name = "id_cita") Long idCita) {
 		service.create(novedad, idCita);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
@@ -39,7 +38,7 @@ public class NovedadController {
 	@DeleteMapping(path = "/{id_novedad}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> delete(@PathVariable(name = "id_cita") Long idCita,
 			@PathVariable(name = "id_novedad") Long idNovedad) throws Exception {
-		service.delete(idCita);
+		service.delete(idNovedad);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 

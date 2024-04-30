@@ -10,6 +10,9 @@ import edu.poli.citas.citasMedicas.model.AutorizacionModel;
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public abstract class AutorizacionMapper {
 	
+	@Mapping(target = "examenes" , ignore= true)
+	@Mapping(target = "medicamentos" , ignore= true)
+	@Mapping(target = "cita" , ignore= true)
 	public abstract AutorizacionDto toDto(AutorizacionModel source);
 	
 	@Mapping(target = "id", ignore = true)

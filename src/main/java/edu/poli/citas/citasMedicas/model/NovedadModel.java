@@ -29,7 +29,7 @@ public class NovedadModel implements Serializable {
 	@Column(name = "OBSERVACION", nullable = false, length = 200)
 	private String observacion;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cita")
 	private CitaModel cita;
 

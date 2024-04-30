@@ -26,8 +26,8 @@ public class MedicamentoModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "medicamentos")
+	@ManyToOne(optional = false,  fetch = FetchType.EAGER)
+	@JoinColumn(name = "autorizacion")
 	private AutorizacionModel autorizacion;
 
 	@Column(name = "NOMBRE", nullable = false, length = 100)
